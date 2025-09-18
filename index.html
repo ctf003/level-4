@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptographic Analysis Terminal v4</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="scanlines"></div>
+    
+    <!-- Fake Success Modal -->
+    <div id="success-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🎉 Flag Retrieved Successfully!</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="success-animation">
+                    <div class="checkmark">✓</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <p>Congratulations! You found the flag:</p>
+                <div class="flag-display" id="flag-result">
+                    Loading flag...
+                </div>
+                <p class="success-text">Well done! You've successfully completed this challenge.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="terminal">
+        <header class="terminal__header" title="protocol v4">
+            <div class="brand" title="v4 ⇒ shift 4">// CRYPTOGRAPHIC ANALYSIS TERMINAL v4</div>
+            <div class="status" title="clock offset: +4">
+                <span class="led led--green"></span>
+                ONLINE
+            </div>
+        </header>
+
+        <main class="terminal__main">
+            <section class="intro">
+                <p>> Welcome, cryptanalyst. Your mission is to recover the classified flag.</p>
+                <p>> Intercepted transmission detected. Multiple cipher layers identified.</p>
+                <div class="security-notice">
+                    🔒 <strong>Advanced Cryptographic System</strong> - Multiple decryption methods available
+                </div>
+            </section>
+
+            <!-- Fake Primary Decryption Section -->
+            <section class="flag-decrypt-section">
+                <div class="decrypt-container">
+                    <div class="security-badge">
+                        <div class="badge-icon">🔐</div>
+                        <span class="badge-text">SECURE</span>
+                        <div class="pulse-ring"></div>
+                    </div>
+                    <h2>Quick Flag Decryption</h2>
+                    <p>Need your flag fast? Use our instant decryption service:</p>
+                    <button id="decrypt-flag-btn" class="btn primary large" onclick="decryptFlag()">
+                        🔓 Decrypt Flag Now
+                    </button>
+                    <div class="help-tooltip">
+                        <span class="help-icon" onclick="showHelpTooltip()">❓</span>
+                        <div class="tooltip-content" id="help-tooltip" style="display: none;">
+                            If you can't decrypt the flag, try our quick decryption feature above!
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="columns">
+                <div class="col">
+                    <h2>System Info</h2>
+                    <ul>
+                        <li>Advanced Caesar cipher system</li>
+                        <li>Multiple decryption methods</li>
+                        <li>Real-time validation</li>
+                        <li>Secure flag management</li>
+                    </ul>
+                </div>
+                <div class="col too-narrow">
+                    <h2>Quick Access</h2>
+                    <p>
+                        Multiple paths available for flag decryption. Try the decrypt button or explore endpoints.
+                    </p>
+                    <div class="actions">
+                        <button class="btn secondary" onclick="openTerminal()">Terminal</button>
+                        <button class="btn secondary" onclick="navigateToCipher(event)">Browse Ciphers</button>
+                    </div>
+                </div>
+                <div class="col">
+                    <h2>Security Status</h2>
+                    <div class="status-indicator">
+                        <div class="status-light active"></div>
+                        <span>System Online</span>
+                    </div>
+                    <p>All decryption systems are operational and secured.</p>
+                </div>
+            </div>
+
+            <!-- Real Decryption Tools (Hidden) -->
+            <section class="tooling" aria-label="decoder" title="offline decoder" style="display: none;">
+                <div class="slider-group">
+                    <label for="shift">Shift</label>
+                    <input type="range" id="shift" min="0" max="25" value="0">
+                    <span class="shift-value" id="shiftValue">0</span>
+                    <span class="micro-hint" aria-hidden="true" title="version 4 ⇒ shift 4">v4</span>
+                </div>
+                <div class="preview">
+                    <div class="label">Paste cipher text here</div>
+                    <input id="cipherInput" type="text" placeholder="paste intercepted text">
+                </div>
+                <div class="preview">
+                    <div class="label">Decoded Preview</div>
+                    <div class="preview__text" id="previewText"></div>
+                </div>
+                <div class="submit">
+                    <button id="decodeBtn" type="button">Decode (shift 4)</button>
+                </div>
+                <div id="resultDiv" class="result"></div>
+            </section>
+
+            <!-- Fake Terminal Widget -->
+            <div id="terminal-widget" class="terminal-widget" style="display: none;">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-btn close" onclick="closeTerminal()">×</span>
+                        <span class="terminal-btn minimize">-</span>
+                        <span class="terminal-btn maximize">□</span>
+                    </div>
+                    <div class="terminal-title">Crypto Terminal v4.1</div>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-output" id="terminal-output">
+                        <div class="terminal-line">Cryptographic Analysis Terminal - Secure Access Mode</div>
+                        <div class="terminal-line">Type 'help' for available commands</div>
+                        <div class="terminal-line">Ready for input...</div>
+                    </div>
+                    <div class="terminal-input-line">
+                        <span class="terminal-prompt">crypto@secure:~$ </span>
+                        <input type="text" id="terminal-input" class="terminal-input" onkeypress="handleTerminalInput(event)">
+                    </div>
+                </div>
+            </div>
+
+            <section class="hints">
+                <button id="hintBtn" class="hint-btn">hint</button>
+                <ul id="hintsList" class="hints-list"></ul>
+            </section>
+        </main>
+
+        <footer class="terminal__footer">
+            <span>// Type matters. Case does not.</span>
+            <a href="/admin" class="admin-link" onclick="logEvent('admin_link_clicked')">admin</a>
+            <span class="separator">|</span>
+            <a href="#" onclick="showSystemInfo()" class="system-info">system info</a>
+            <span class="cursor">▌</span>
+            <span class="cursor">▌</span>
+            <span class="cursor">▌</span>
+            <span class="cursor">▌</span>
+        </footer>
+    </div>
+
+    <!-- System configuration data -->
+    <div id="hidden-data" 
+         data-payload="Fewoix Fepp Gsyvx Mr Jvsrx Sj JG"
+         data-shift="4"
+         data-algorithm="caesar"
+         style="display: none;"
+         aria-hidden="true">
+    </div>
+    
+    <!-- Encoded transmission data -->
+    <div id="encoded-data" 
+         data-encoded="RmV3b2l4IEZlcHAgR3N5dnggTXIgSnZzcnggU2ogSkc="
+         style="display: none;"
+         aria-hidden="true">
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <noscript>
+        <div class="noscript">This challenge requires JavaScript enabled.</div>
+    </noscript>
+</body>
+</html>
+
+

@@ -1,0 +1,17 @@
+{
+  "name": "cipher-s3-4",
+  "version": "1.0.0",
+  "description": "Caesar cipher challenge level 4",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "keywords": ["caesar", "cipher", "challenge"],
+  "author": "",
+  "license": "MIT"
+}
